@@ -15,10 +15,13 @@
 <body>
 <!-- //**************    Apated from Web GIS practicals        ****************// --> 
           <!-- the mapid div will hold the map --> 
-          <div id="mapid" style="width: 300px; height: 500px;"></div>		
+          <div id="mapid" style="width: 358px; height: 500px;"></div>		
           <div id="ajaxtest" style="width: 1600px; height: 20px;"></div>
+<!-- return the user's continous location -->
 		  <div id='showLocation'>&nbsp &nbsp Continuous location will be displayed here</div>   
+<!-- return the distance between the question and user's position -->
           <div id='showDistance'>&nbsp &nbsp Continuous distance will be displayed here</div>
+<!-- trigger the function to track continous location -->
           <button id='trackLocation' onclick='trackLocation()'>Click Me to Track Location</button>		
 <script>
 <!-- ////*****************    Apated from Web GIS practicals week 2  *************//  --> 
@@ -29,21 +32,24 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 </script>
 
 <!--//************       Apated from Web GIS practicals week 6-7 (div change)     ***********// -->
+<!-- radio box is to store users' answer number -->
+<!-- create empty DIV and then change the DIV to show location-based question using specific id -->
 <p><div id="questionid">&nbsp &nbsp QuestionID</div><div id="question">&nbsp &nbsp Question</div></p>
 <div id="answernumber1">&nbsp &nbsp Answer1</div><input type="radio" name="answernumber" value="1" id="a1"> <br/>
 <div id="answernumber2">&nbsp &nbsp Answer2</div><input type="radio" name="answernumber" value="2" id="a2"> <br/>
 <div id="answernumber3">&nbsp &nbsp Answer3</div><input type="radio" name="answernumber" value="3" id="a3"> <br/>
 <div id="answernumber4">&nbsp &nbsp Answer4</div><input type="radio" name="answernumber" value="4" id="a4"> <br/>
 
+<!-- return the result of inserting answer into database  -->
 <p><div id="dataUploadResult">The result of the upload goes here</div>
 </p>
+<!-- trigger the function to connect database and upload data into it -->
 <p><button id="quizUpload" onclick="quizUpload()">Submit</button>
 </p>
 <!--  //*************Adapted from w3schools.com *********//  -->
 <p><input type="button" value="Refresh Page" onClick="window.location.reload()">
 </p> 
-
- 	
+<!-- all functions are in these two files -->	
 <script src = "./js/uploadData.js"></script>
 <script src = "./js/appActivity.js"></script>
 </body>

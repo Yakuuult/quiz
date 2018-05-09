@@ -1,3 +1,4 @@
+//********** Adapted the code from Web GIS practical week 6-7   ********//
 // read in the file and force it to be a string by adding “” at the beginning
 var fs = require('fs');
 var configtext =
@@ -6,10 +7,10 @@ var configtext =
 var configarray = configtext.split(",");
 var config = {};
 for (var i = 0; i < configarray.length; i++) 
-{
- var split = configarray[i].split(':');
- config[split[0].trim()] = split[1].trim();
-}
+                                           {var split = configarray[i].split(':');
+									        config[split[0].trim()] = split[1].trim();
+                                           }
+// set up a database connection
 var pg = require('pg');
 var pool = new pg.Pool(config);
 
@@ -17,6 +18,7 @@ var express = require('express');
 var path = require("path");
 var app = express();
 
+// process the uploaded data
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
  extended: true
@@ -29,7 +31,8 @@ app.use(function(req, res, next) {
  next();
 });
 
-
+// view Data as GeoJSON
+// the tablename and the name of the geometry column can let us generate GeoJSON from any spatial table
 app.get('/getGeoJSON/:tablename/:geomcolumn', function (req,res) {
  pool.connect(function(err,client,done) {
  if(err){
@@ -57,7 +60,7 @@ done();
 // for (var i =0; i< result.rows.length ;i++) {
 // console.log(result.rows[i].string_agg);
 // }
- thecolnames = result.rows[0].string_agg;
+thecolnames = result.rows[0].string_agg;
 colnames = thecolnames;
 console.log("the colnames "+thecolnames);
  // now use the inbuilt geoJSON functionality
@@ -144,7 +147,7 @@ app.use(function (req, res, next) {
   // send the response
   res.sendFile(__dirname + '/'+req.params.name1+'/'+req.params.name2+ '/'+req.params.name3+"/"+req.params.name4);
 });
-
+// do the POST request to server.js
 app.post('/uploadData',function(req,res){
 // note that we are using POST here as we are uploading data
 // so the parameters form part of the BODY of the request rather than the RESTful API
@@ -166,14 +169,13 @@ if(err){
 console.log(err);
 res.status(400).send(err);
 }
+//uploadData result (uploading questions)
 res.status(200).send("Question Set Succeed");
 });
 });
 });
 
 app.post('/quizUpload',function(req,res){
-// note that we are using POST here as we are uploading data
-// so the parameters form part of the BODY of the request rather than the RESTful API
                                          console.dir(req.body);
                                          pool.connect(function(err,client,done) {
                                                                                  if(err){
@@ -188,6 +190,7 @@ if(err){
 console.log(err);
 res.status(400).send(err);
 }
+//quizuploadData result (uploading question id and user's answer)
 res.status(200).send("Quiz Finished");
 });
 });
